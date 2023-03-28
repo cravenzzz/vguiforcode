@@ -275,49 +275,22 @@ do
 					ScaleType = Enum.ScaleType.Slice,
 					SliceCenter = Rect.new(4, 4, 296, 296)
 				}, {
-					-- Define a sequence of colors
-local colors = {
-    Color3.fromRGB(255, 0, 0), -- Red
-    Color3.fromRGB(255, 255, 0), -- Yellow
-    Color3.fromRGB(0, 255, 0), -- Green
-    Color3.fromRGB(0, 255, 255), -- Cyan
-    Color3.fromRGB(0, 0, 255), -- Blue
-    Color3.fromRGB(255, 0, 255), -- Magenta
-}
-
--- Define a function to animate the TextStrokeColor3 property
-local function animateTextGlow(textLabel, colors)
-    while true do
-        for _, color in ipairs(colors) do
-            textLabel.TextStrokeColor3 = color
-            wait(0.5) -- Wait for half a second before changing the color
-        end
-    end
-end
-
--- Define the title variable
-local title = "My Title"
-
--- Create the TextLabel with the animated glow
-local textLabel = utility:Create("TextLabel", {
-    Name = "Title",
-    AnchorPoint = Vector2.new(0, 0.5),
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0, 12, 0, 19),
-    Size = UDim2.new(1, -46, 0, 16),
-    ZIndex = 5,
-    Font = Enum.Font.GothamBold,
-    Text = title,
-    TextColor3 = themes.TextColor,
-    TextSize = 14,
-    TextXAlignment = Enum.TextXAlignment.Left,
-    TextStrokeTransparency = 0.5, -- Make the stroke partially transparent
-})
-
--- Start the animation when the TextLabel is added to the GUI
-textLabel:GetPropertyChangedSignal("Parent"):Connect(function()
-    animateTextGlow(textLabel, colors)
-end)
+						utility:Create("TextLabel", { -- title
+						Name = "Title",
+						AnchorPoint = Vector2.new(0, 0.5),
+						BackgroundTransparency = 1,
+						Position = UDim2.new(0, 12, 0, 19),
+						Size = UDim2.new(1, -46, 0, 16),
+						ZIndex = 5,
+						Font = Enum.Font.GothamBold,
+						Text = title,
+						TextColor3 = themes.TextColor,
+						TextSize = 14,
+						TextXAlignment = Enum.TextXAlignment.Left
+					})
+				})
+			})
+		})
 
 		
 		utility:InitializeKeybind()
