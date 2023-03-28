@@ -274,23 +274,43 @@ do
 					ImageColor3 = themes.Accent,
 					ScaleType = Enum.ScaleType.Slice,
 					SliceCenter = Rect.new(4, 4, 296, 296)
-				}, {
-						utility:Create("TextLabel", { -- title
-						Name = "Title",
-						AnchorPoint = Vector2.new(0, 0.5),
-						BackgroundTransparency = 1,
-						Position = UDim2.new(0, 12, 0, 19),
-						Size = UDim2.new(1, -46, 0, 16),
-						ZIndex = 5,
-						Font = Enum.Font.GothamBold,
-						Text = title,
-						TextColor3 = themes.TextColor,
-						TextSize = 14,
-						TextXAlignment = Enum.TextXAlignment.Left
-					})
-				})
-			})
-		})
+				local rainbowColors = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 0)),
+    ColorSequenceKeypoint.new(0.25, Color3.fromRGB(255, 255, 0)),
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(0, 255, 0)),
+    ColorSequenceKeypoint.new(0.75, Color3.fromRGB(0, 255, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 255))
+})
+
+local TextLabel = utility:Create("TextLabel", {
+    Name = "Title",
+    AnchorPoint = Vector2.new(0, 0.5),
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 12, 0, 19),
+    Size = UDim2.new(1, -46, 0, 16),
+    ZIndex = 5,
+    Font = Enum.Font.GothamBold,
+    Text = title,
+    TextColor3 = themes.TextColor,
+    TextSize = 14,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    Parent = utility:Create("Frame", {
+        Name = "TitleContainer",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 0, 0, 0),
+        Size = UDim2.new(1, 0, 0, 50),
+        ZIndex = 5,
+        Parent = container
+    })
+})
+
+while true do
+    for i = 0, 1, 0.005 do
+        TextLabel.TextColor3 = rainbowColors:GetColor(i)
+        wait()
+    end
+end
+
 
 		
 		utility:InitializeKeybind()
