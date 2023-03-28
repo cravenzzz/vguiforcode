@@ -314,7 +314,6 @@ utility:Create("TextLabel", { -- title
     animateTextGlow(textLabel, colors)
 end)
 
-})
 
 				})
 			})
