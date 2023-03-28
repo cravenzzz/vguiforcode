@@ -275,67 +275,18 @@ do
 					ScaleType = Enum.ScaleType.Slice,
 					SliceCenter = Rect.new(4, 4, 296, 296)
 				}, {
-					local title = "Example Title"
-local themes = {
-    TextColor = Color3.fromRGB(255, 255, 255)
-}
-
-local utility = {}
-
-function utility:Create(class, properties)
-    local instance = Instance.new(class)
-    for property, value in pairs(properties) do
-        instance[property] = value
-    end
-    return instance
-end
-
-local label = utility:Create("Frame", {
-    Name = "Label",
-    BackgroundTransparency = 1,
-    Size = UDim2.new(1, 0, 0, 50),
-    ZIndex = 5,
-    Parent = game:GetService("CoreGui")
-})
-
-local textLabel = utility:Create("TextLabel", {
-    Name = "TextLabel",
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0, 0, 0, 0),
-    Size = UDim2.new(1, 0, 1, 0),
-    ZIndex = 5,
-    Font = Enum.Font.GothamBold,
-    Text = title,
-    TextColor3 = themes.TextColor,
-    TextSize = 14,
-    TextXAlignment = Enum.TextXAlignment.Left,
-    Parent = label
-})
-
--- Add glow effect to the text label
-local glow = utility:Create("ImageLabel", {
-    Name = "Glow",
-    BackgroundTransparency = 1,
-    Position = UDim2.new(-0.2, 0, -0.2, 0),
-    Size = UDim2.new(1.4, 0, 1.4, 0),
-    ZIndex = 4,
-    Image = "rbxassetid://4996891970",
-    ImageColor3 = Color3.new(1, 0, 0),
-    ImageTransparency = 0.5,
-    Parent = textLabel
-})
-
-local function updateGlow()
-    local r = math.sin(tick()*0.5)*0.5+0.5
-    local g = math.sin(tick()*0.7)*0.5+0.5
-    local b = math.sin(tick()*0.9)*0.5+0.5
-    glow.ImageColor3 = Color3.new(r,g,b)
-end
-
-game:GetService("RunService").RenderStepped:connect(function()
-    updateGlow()
-end)
-
+					utility:Create("TextLabel", { -- title
+						Name = "Title",
+						AnchorPoint = Vector2.new(0, 0.5),
+						BackgroundTransparency = 1,
+						Position = UDim2.new(0, 12, 0, 19),
+						Size = UDim2.new(1, -46, 0, 16),
+						ZIndex = 5,
+						Font = Enum.Font.GothamBold,
+						Text = title,
+						TextColor3 = themes.TextColor,
+						TextSize = 14,
+						TextXAlignment = Enum.TextXAlignment.Left
 					})
 				})
 			})
