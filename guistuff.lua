@@ -274,62 +274,72 @@ do
 					ImageColor3 = themes.Accent,
 					ScaleType = Enum.ScaleType.Slice,
 					SliceCenter = Rect.new(4, 4, 296, 296)
-				local rainbowColors = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 0)),
-    ColorSequenceKeypoint.new(0.25, Color3.fromRGB(255, 255, 0)),
-    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(0, 255, 0)),
-    ColorSequenceKeypoint.new(0.75, Color3.fromRGB(0, 255, 255)),
-    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 255))
-})
+				}, {
+					local title = "Example Title"
+local themes = {
+    TextColor = Color3.fromRGB(255, 255, 255)
+}
 
-}, {
-    utility:Create("TextLabel", { -- title
-        Name = "Title",
-        AnchorPoint = Vector2.new(0, 0.5),
-        BackgroundTransparency = 1,
-        Position = UDim2.new(0, 12, 0, 19),
-        Size = UDim2.new(1, -46, 0, 16),
-        ZIndex = 5,
-        Font = Enum.Font.GothamBold,
-        Text = title,
-        TextSize = 14,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        TextColor3 = Color3.fromRGB(255, 255, 255), -- Set initial color to white
-        TextStrokeTransparency = 0.5, -- Set initial stroke transparency to 0.5 (half-transparent)
-        TextStrokeColor3 = Color3.fromRGB(255, 0, 0), -- Set initial stroke color to red
-        [Roact.Event.MouseEnter] = function()
-            -- When the mouse enters the label, start the color transition
-            local t = 0
-            while true do
-                -- Loop forever, updating the colors every frame
-                t = t + 0.01 -- Increment t by a small amount
-                local r = math.sin(0.5 * math.pi * t) -- Calculate the red component of the color based on t
-                local g = math.sin(0.7 * math.pi * t) -- Calculate the green component of the color based on t
-                local b = math.sin(0.9 * math.pi * t) -- Calculate the blue component of the color based on t
-                local color = Color3.new(r, g, b) -- Combine the RGB components into a single color
-                local strokeColor = Color3.new(1 - r, 1 - g, 1 - b) -- Invert the RGB components for the stroke color
-                utility:TweenProperty(label, "TextColor3", color, 0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
-                utility:TweenProperty(label, "TextStrokeColor3", strokeColor, 0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
-                wait() -- Wait one frame before updating again
-            end
-        end,
-        [Roact.Event.MouseLeave] = function()
-            -- When the mouse leaves the label, stop the color transition and reset the colors
-            utility:TweenProperty(label, "TextColor3", Color3.fromRGB(255, 255, 255), 0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
-            utility:TweenProperty(label, "TextStrokeColor3", Color3.fromRGB(255, 0, 0), 0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
-        end
-    })
-})
+local utility = {}
 
-
-while true do
-    for i = 0, 1, 0.005 do
-        TextLabel.TextColor3 = rainbowColors:GetColor(i)
-        wait()
+function utility:Create(class, properties)
+    local instance = Instance.new(class)
+    for property, value in pairs(properties) do
+        instance[property] = value
     end
+    return instance
 end
 
+local label = utility:Create("Frame", {
+    Name = "Label",
+    BackgroundTransparency = 1,
+    Size = UDim2.new(1, 0, 0, 50),
+    ZIndex = 5,
+    Parent = game:GetService("CoreGui")
+})
 
+local textLabel = utility:Create("TextLabel", {
+    Name = "TextLabel",
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 0, 0, 0),
+    Size = UDim2.new(1, 0, 1, 0),
+    ZIndex = 5,
+    Font = Enum.Font.GothamBold,
+    Text = title,
+    TextColor3 = themes.TextColor,
+    TextSize = 14,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    Parent = label
+})
+
+-- Add glow effect to the text label
+local glow = utility:Create("ImageLabel", {
+    Name = "Glow",
+    BackgroundTransparency = 1,
+    Position = UDim2.new(-0.2, 0, -0.2, 0),
+    Size = UDim2.new(1.4, 0, 1.4, 0),
+    ZIndex = 4,
+    Image = "rbxassetid://4996891970",
+    ImageColor3 = Color3.new(1, 0, 0),
+    ImageTransparency = 0.5,
+    Parent = textLabel
+})
+
+local function updateGlow()
+    local r = math.sin(tick()*0.5)*0.5+0.5
+    local g = math.sin(tick()*0.7)*0.5+0.5
+    local b = math.sin(tick()*0.9)*0.5+0.5
+    glow.ImageColor3 = Color3.new(r,g,b)
+end
+
+game:GetService("RunService").RenderStepped:connect(function()
+    updateGlow()
+end)
+
+					})
+				})
+			})
+		})
 		
 		utility:InitializeKeybind()
 		utility:DraggingEnabled(container.Main.TopBar, container.Main)
