@@ -276,18 +276,21 @@ do
 					SliceCenter = Rect.new(4, 4, 296, 296)
 				}, {
 					utility:Create("TextLabel", { -- title
-						Name = "Title",
-						AnchorPoint = Vector2.new(0, 0.5),
-						BackgroundTransparency = 1,
-						Position = UDim2.new(0, 12, 0, 19),
-						Size = UDim2.new(1, -46, 0, 16),
-						ZIndex = 5,
-						Font = Enum.Font.GothamBold,
-						Text = title,
-						TextColor3 = themes.TextColor,
-						TextSize = 14,
-						TextXAlignment = Enum.TextXAlignment.Left
-					})
+    Name = "Title",
+    AnchorPoint = Vector2.new(0, 0.5),
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 12, 0, 19),
+    Size = UDim2.new(1, -46, 0, 16),
+    ZIndex = 5,
+    Font = Enum.Font.GothamBold,
+    Text = title,
+    TextColor3 = themes.TextColor,
+    TextSize = 14,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    TextStrokeColor3 = Color3.fromRGB(255, 0, 0), -- Red
+    TextStrokeTransparency = 0.5, -- Make the stroke partially transparent
+})
+
 				})
 			})
 		})
