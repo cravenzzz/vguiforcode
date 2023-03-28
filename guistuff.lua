@@ -275,19 +275,32 @@ do
 					ScaleType = Enum.ScaleType.Slice,
 					SliceCenter = Rect.new(4, 4, 296, 296)
 				}, {
-					utility:Create("TextLabel", { -- title
-						Name = "Title",
-						AnchorPoint = Vector2.new(0, 0.5),
-						BackgroundTransparency = 1,
-						Position = UDim2.new(0, 12, 0, 19),
-						Size = UDim2.new(1, -46, 0, 16),
-						ZIndex = 5,
-						Font = Enum.Font.GothamBold,
-						Text = title,
-						TextColor3 = themes.TextColor,
-						TextSize = 14,
-						TextXAlignment = Enum.TextXAlignment.Left
-					})
+					local colors = {
+    Color3.fromRGB(255, 0, 0), -- Red
+    Color3.fromRGB(0, 255, 0), -- Green
+    Color3.fromRGB(0, 0, 255), -- Blue
+}
+local currentColorIndex = 1
+local label = utility:Create("TextLabel", {
+    Name = "Title",
+    AnchorPoint = Vector2.new(0, 0.5),
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 12, 0, 19),
+    Size = UDim2.new(1, -46, 0, 16),
+    ZIndex = 5,
+    Font = Enum.Font.GothamBold,
+    Text = title,
+    TextColor3 = themes.TextColor,
+    TextSize = 14,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    TextStrokeTransparency = 0.5, -- Make the stroke partially transparent
+})
+while true do
+    label.TextStrokeColor3 = colors[currentColorIndex]
+    currentColorIndex = currentColorIndex % #colors + 1
+    wait(0.5) -- Wait for half a second before updating the color again
+end
+
 				})
 			})
 		})
