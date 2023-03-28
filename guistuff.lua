@@ -295,8 +295,11 @@ local function animateTextGlow(textLabel, colors)
     end
 end
 
+-- Define the title variable
+local title = "My Title"
+
 -- Create the TextLabel with the animated glow
-utility:Create("TextLabel", { -- title
+local textLabel = utility:Create("TextLabel", {
     Name = "Title",
     AnchorPoint = Vector2.new(0, 0.5),
     BackgroundTransparency = 1,
@@ -309,15 +312,13 @@ utility:Create("TextLabel", { -- title
     TextSize = 14,
     TextXAlignment = Enum.TextXAlignment.Left,
     TextStrokeTransparency = 0.5, -- Make the stroke partially transparent
-}):GetPropertyChangedSignal("Parent"):Connect(function()
-    -- Start the animation when the TextLabel is added to the GUI
+})
+
+-- Start the animation when the TextLabel is added to the GUI
+textLabel:GetPropertyChangedSignal("Parent"):Connect(function()
     animateTextGlow(textLabel, colors)
 end)
 
-
-				})
-			})
-		})
 		
 		utility:InitializeKeybind()
 		utility:DraggingEnabled(container.Main.TopBar, container.Main)
